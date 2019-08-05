@@ -9,40 +9,40 @@ export class GameComponent implements OnInit {
   database: any = {
     teams: {
       T1: {
-        color: 'red',
+        color: '',
         players: {
           0: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           1: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           2: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           3: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           }
         }
       },
       T2: {
-        color: 'blue',
+        color: '',
         players: {
           0: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           1: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           2: {
             status: "B || M || W",
-            position: '1 - 6'
+            position: '0 - 50'
           },
           3: {
             status: "B || M || W",
@@ -51,6 +51,7 @@ export class GameComponent implements OnInit {
         }
       },
     },
+    possibleColors: ['red', 'blue', 'yellow', 'green'],
     currentTeam: '',
     isRollAwaited: false,
     currentRoll: '1-6',
@@ -62,10 +63,47 @@ export class GameComponent implements OnInit {
   ngOnInit() {
 
     console.log(this.database)
+
+    // function to set colors randomly, only supply how many teams are playing
+    this.assignColors();
   }
 
+  assignColors() {
+
+    let totalTeams = Object.keys(this.database.teams).length
+    let resArr = []
+    let self = this
+
+    let randomColorIndexesArr = getNewRandomArr();
+    function getNewRandomArr() {
+
+      let randomNumber = self.randomNumberGiver(0, 3)
+      if (!resArr.includes(randomNumber)) {
+
+        resArr.push(randomNumber)
+        if (resArr.length === totalTeams) {
+
+          return resArr;
+        }
+        else {
+          return getNewRandomArr()
+        }
+      }
+      else {
+
+        return getNewRandomArr()
+      }
+    }
+
+    let colorCount = 0;
+    for (let team in this.database.teams) {
+
+      this.database.teams[team].color = this.database.possibleColors[randomColorIndexesArr[colorCount]]
+      colorCount++;
+    }
+  }
   startTheGame() {
-    
+
     this.database.isGameOn = true;
     // update current player
     this.updateStarterPlayer()
@@ -106,7 +144,7 @@ export class GameComponent implements OnInit {
   }
 
   setMovement(team, diceRoll) {
-   
+
     if (diceRoll === 6) {
       console.log('player ' + team + ' goes again')
     }
@@ -120,5 +158,9 @@ export class GameComponent implements OnInit {
     // check total and move it 
     const currentTeam = this.database.changeTeamTurn
     console.log('trying to change team turn current team is')
+  }
+  randomNumberGiver(min, max) {
+    // include enpoints
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 }

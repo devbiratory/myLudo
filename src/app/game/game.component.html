@@ -7,116 +7,120 @@
   <!-- playing field div to show the games dance floor -->
   <div class="thePlayingFieldDiv">
     <div class="danceFloorRow">
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
     </div>
 
     <div class="danceFloorRow">
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
     </div>
 
     <div class="danceFloorRow">
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
     </div>
 
     <div class="danceFloorRow">
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
     </div>
 
     <div class="danceFloorRow">
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
-        <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
+      <div class="danceFloorBlock"></div>
     </div>
 
-    
+
   </div>
 
   <!-- basically the footer div to show stats, the turn, the options and the players who are still waiting  -->
-  <div class="footerStatsDiv">  
-    
-      <div class="footerStatsOne">
-        <div class="gitiRow">
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-        </div>
-        <div class="gitiRow">
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-        </div>
-      </div>
+  <div class="footerStatsDiv">
 
-
-
-      <div class="footerStatsTwo">
-        <div (click)="startTheGame()" *ngIf="!database.isGameOn" class="playMessage">
-          Start
+    <div class="footerStatsOne">
+      <div class="gitiRow {{ database.teams.T1.color }}">
+        <div class="gitiBlock">
+          <div class="giti"></div>
         </div>
-        <div (click)="roll()" class="playMessage" *ngIf="database.currentTeam" >
-          Roll {{database.currentTeam}}
-          <i *ngIf="database.isRollAwaited" class="fas fa-dice"></i>
+        <div class="gitiBlock">
+          <div class="giti"></div>
+        </div>
+        <div class="gitiBlock">
+          <div class="giti"></div>
+        </div>
+        <div class="gitiBlock">
+          <div class="giti"></div>
         </div>
       </div>
+    </div>
+
+    <div class="footerStatsTwo">
+      <div (click)="startTheGame()" *ngIf="!database.isGameOn" class="playMessage">
+        Start
+      </div>
+      <div (click)="roll()" class="playMessage" *ngIf="database.currentTeam">
+        Roll {{database.currentTeam}}
+        <i *ngIf="database.isRollAwaited" class="fas fa-dice"></i>
+      </div>
+    </div>
 
 
 
-      <div class="footerStatsThree">
-        <div class="gitiRow">
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-          <div class="gitiBlock">  <div class="giti"></div> </div>
+    <div class="footerStatsThree">
+      <div class="gitiRow {{ database.teams.T2.color }}">
+        <div class="gitiBlock">
+          <div class="giti"></div>
         </div>
-        <div class="gitiRow">
-          <div class="gitiBlock">  <div class="giti"></div> </div>
-          <div class="gitiBlock">  <div class="giti"></div> </div>
+        <div class="gitiBlock">
+          <div class="giti"></div>
+        </div>
+        <div class="gitiBlock">
+          <div class="giti"></div>
+        </div>
+        <div class="gitiBlock">
+          <div class="giti"></div>
         </div>
       </div>
-  </div>  
+    </div>
+  </div>
 </section>
-
-
-
-
-
-
