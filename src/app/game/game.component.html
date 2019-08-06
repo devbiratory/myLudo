@@ -79,17 +79,8 @@
 
     <div class="footerStatsOne">
       <div class="gitiRow {{ database.teams.T1.color }}">
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
+        <div *ngFor="let teamPlayer of generateArray(database.teams.T1.players); let i = index" class="gitiBlock">
+          <div (click)="moveIt('T1', i)" class="giti"></div>
         </div>
       </div>
     </div>
@@ -108,17 +99,8 @@
 
     <div class="footerStatsThree">
       <div class="gitiRow {{ database.teams.T2.color }}">
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
-        </div>
-        <div class="gitiBlock">
-          <div class="giti"></div>
+        <div *ngFor="let teamPlayer of generateArray(database.teams.T2.players); let i = index" class="gitiBlock">
+          <div (click)="moveIt('T2', i)" class="giti"></div>
         </div>
       </div>
     </div>
