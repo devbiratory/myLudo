@@ -43,6 +43,16 @@
     float: left;
     width: 40%;
     height: 100%;
+    background: black;
+}
+
+.footerStatsOne.active{
+    box-shadow: 10px 0px 50px red;
+}
+
+.footerStatsOne.waiting{
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .footerStatsTwo{
@@ -58,19 +68,29 @@
     float: left;
     width: 40%;
     height: 100%;
+    background: black;
+}
+
+.footerStatsThree.active{
+    box-shadow: 10px 0px 50px red;
+}
+
+.footerStatsThree.waiting{
+    opacity: 0.5;
+    cursor: not-allowed;
 }
 
 .gitiRow{
     float: left;
     width: 100%;
     height: 50%;
-    border: 1px solid #918181;
+    // border: 1px solid #918181;
 }
 
 .gitiRow .gitiBlock{
     float: left;
     width: 50%;
-    border: 1px solid #918181;
+    // border: 1px solid #918181;
     height: 100%;
 }
 

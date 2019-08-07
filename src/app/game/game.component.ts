@@ -15,19 +15,19 @@ export class GameComponent implements OnInit {
         players: {
           0: {
             status: "B",
-            position: '0'
+            position: 0
           },
           1: {
             status: "B",
-            position: '0'
+            position: 0
           },
           2: {
             status: "B",
-            position: '0'
+            position: 0
           },
           3: {
             status: "B",
-            position: '0'
+            position: 0
           }
         }
       },
@@ -36,19 +36,19 @@ export class GameComponent implements OnInit {
         players: {
           0: {
             status: "B",
-            position: '0'
+            position: 0
           },
           1: {
             status: "B",
-            position: '0'
+            position: 0
           },
           2: {
             status: "B",
-            position: '0'
+            position: 0
           },
           3: {
             status: "B",
-            position: '0'
+            position: 0
           }
         }
       },
@@ -56,7 +56,7 @@ export class GameComponent implements OnInit {
     possibleColors: ['red', 'blue', 'yellow', 'green'],
     currentTeam: '',
     isRollAwaited: false,
-    currentRoll: '0',
+    currentRoll: 0,
     isGameOn: false,
     isWinner: 'T1 || T2'
   }
@@ -126,6 +126,7 @@ export class GameComponent implements OnInit {
     const playerChosen = 'T' + randomTurnNumber;
     this.database.currentTeam = playerChosen
     this.database.isRollAwaited = true;
+    console.log(this.database.currentTeam + ' to play')
   }
   // check how much to roll and set in db
   // combination of isRollAwaited and currentRoll is formed which is what will make the function that makes the giti move work because this is what will be checked there
@@ -133,7 +134,32 @@ export class GameComponent implements OnInit {
 
     // update currentRoll (1 - 6)
     const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-    this.database.currentRoll = currentRoll;   
+    this.database.currentRoll = currentRoll;
+
+
+    console.log('rolled a ' + this.database.currentRoll)
+    this.database.isRollAwaited = false;
+  }
+  moveIt(team: any, index: number) {
+
+
+    // now here move it as much then turn isRollAwaited off and currentRoll 0
+    // update status to M and W and overall win checks here?
+    // update status to M means its moving
+    this.database.teams[team].players[index].status = 'M'
+
+    let previousVal = parseInt(this.database.teams[team].players[index].position)
+    this.database.teams[team].players[index].position = previousVal + parseInt(this.database.currentRoll)
+
+
+    this.database.isRollAwaited = true;
+    this.checkIfReached(team);
+    this.checkIfWon(team);
+
+    this.changeTeamTurn()
+
+    console.log(this.database.teams.T1.players)
+    console.log(this.database.teams.T2.players)
   }
   changeTeamTurn() {
 
@@ -144,47 +170,14 @@ export class GameComponent implements OnInit {
     const currentTeamIndex = teamsArr.indexOf(currentTeam)
 
     if (this.database.currentRoll !== 6) {
-      
+
       // change team means set a new team in its place
       teamsArr.splice(currentTeamIndex, 1)
       this.database.currentTeam = teamsArr[0]
-      console.log('changed teams!!!  old + '+ currentTeam + 'new is '+this.database.currentTeam)
-    } 
+    }
     else {
       // do nothing bro we got a 6
       console.log('do nothing bro we got a 6')
-    }
-  }
-  moveIt(team: any, index: number){
-
-    // 2 conditions just for clarity right now 
-    // will combine and reduce to one consice later
-    if(this.database.isGameOn && this.database.currentTeam && this.database.currentRoll){ 
-      if(this.database.isRollAwaited && this.database.currentRoll){
-
-        console.log('WE GON MOVE IT '+this.database.currentRoll)
-        // now here move it as much then turn isRollAwaited off and currentRoll 0
-        // update status to M and W and overall win checks here?
-        // update status to M means its moving
-        this.database.teams[team].players[index].status = 'M'
-
-        let previousVal = parseInt(this.database.teams[team].players[index].position)        
-        this.database.teams[team].players[index].position = previousVal + parseInt(this.database.currentRoll)
-
-        this.database.isRollAwaited = false;
-        this.database.currentRoll = 0;
-
-        this.checkIfReached(team);
-        this.checkIfWon(team);   
-        
-        
-        this.changeTeamTurn()
-      } 
-      else{
-        console.log('just to check, wont happen')
-      }      
-      console.log('after movement check')
-      console.log(this.database.teams)
     }
   }
   randomNumberGiver(min, max) {
@@ -196,32 +189,29 @@ export class GameComponent implements OnInit {
     return Object.keys(obj).map((key) => { return obj[key] });
   }
 
-  checkIfReached(team: string){
+  checkIfReached(team: string) {
 
-    console.log('checking if reached')
-    for(let player in this.database.teams[team].players){
-      
-      if(this.database.teams[team].players[player].position >= 50){
+    for (let player in this.database.teams[team].players) {
 
-        this.database.teams[team].players[player].status = 'W' 
+      if (this.database.teams[team].players[player].position >= 50) {
+
+        this.database.teams[team].players[player].status = 'W'
         alert('THIS ONE REACHED!!!!')
-      }        
+      }
     }
   }
-  checkIfWon(team: string){
+  checkIfWon(team: string) {
 
-    console.log('checking if won')
     let ifWon = true
-    for(let player in this.database.teams[team].players){
-      console.log(player)
-      if(this.database.teams[team].players[player].position < 50)
+    for (let player in this.database.teams[team].players) {
+
+      if (this.database.teams[team].players[player].position < 50)
         ifWon = false
     }
-    if(ifWon){
-      console.log('WON!!!!!')
+    if (ifWon) {
       alert('WON!!!!!')
-    } else{
-      console.log('did not win')
+    } else {
+
     }
   }
 }

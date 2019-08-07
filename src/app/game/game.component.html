@@ -77,7 +77,7 @@
   <!-- basically the footer div to show stats, the turn, the options and the players who are still waiting  -->
   <div class="footerStatsDiv">
 
-    <div class="footerStatsOne">
+    <div class="footerStatsOne" [class.active]="database.currentTeam == 'T1'" [class.waiting]="!database.isGameOn">
       <div class="gitiRow {{ database.teams.T1.color }}">
         <div *ngFor="let teamPlayer of generateArray(database.teams.T1.players); let i = index" class="gitiBlock">
           <div (click)="moveIt('T1', i)" class="giti"></div>
@@ -90,14 +90,15 @@
         Start
       </div>
       <div (click)="roll()" class="playMessage" *ngIf="database.currentTeam">
-        Roll {{database.currentTeam}}
+        <!-- <span *ngIf="!database.isRollAwaited"> Roll {{database.currentTeam}} </span> -->
+        <span *ngIf="!database.isRollAwaited"> {{database.currentRoll}} </span>
         <i *ngIf="database.isRollAwaited" class="fas fa-dice"></i>
       </div>
     </div>
 
 
 
-    <div class="footerStatsThree">
+    <div class="footerStatsThree" [class.active]="database.currentTeam == 'T2'" [class.waiting]="!database.isGameOn">
       <div class="gitiRow {{ database.teams.T2.color }}">
         <div *ngFor="let teamPlayer of generateArray(database.teams.T2.players); let i = index" class="gitiBlock">
           <div (click)="moveIt('T2', i)" class="giti"></div>
