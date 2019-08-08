@@ -139,13 +139,41 @@ export class GameComponent implements OnInit {
 
     console.log('rolled a ' + this.database.currentRoll)
     this.database.isRollAwaited = false;
+
+    this.checkIfTeamCanMoveAfterRoll()
+  }
+  checkIfTeamCanMoveAfterRoll() {
+    // because 6 means that yeah it can move
+    if (this.database.currentRoll !== 6) {
+      // if any player is of the status M
+      let canMove = false;
+      const currentTeam = this.database.currentTeam
+      for (const player in this.database.teams[currentTeam].players) {
+        if (this.database.teams[currentTeam].players[player].status === 'M') {
+          canMove = true;
+        }
+      }
+      if (!canMove) {
+        this.changeTeamTurn()
+        this.database.isRollAwaited = true;
+      }
+    }
   }
   moveIt(team: any, index: number) {
 
+    // only proceed if the team whose turn it is, is the one who called to moveIt
+    if (team !== this.database.currentTeam) {
+      return
+    }
+    //if we are here means we can go forward because the 'if this team can move at all' check has already happened
+    if( (this.database.teams[team].players[index].status === 'B') && (this.database.currentRoll !== 6) ){
+      return 
+    }
 
     // now here move it as much then turn isRollAwaited off and currentRoll 0
     // update status to M and W and overall win checks here?
     // update status to M means its moving
+
     this.database.teams[team].players[index].status = 'M'
 
     let previousVal = parseInt(this.database.teams[team].players[index].position)
