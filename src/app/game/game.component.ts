@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core'
 })
 export class GameComponent implements OnInit {
   // status B || M || W 
-  // position 0
+  // position 0 { T2: 0 }, { T2: 2 }
   database: any = {
     teams: {
       T1: {
@@ -182,7 +182,7 @@ export class GameComponent implements OnInit {
       this.database.teams[team].players[index].status = 'M'
 
       // 0 here
-      this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color)
+      this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color, team, index)
 
       this.database.isRollAwaited = true;
       this.checkIfReached(team);
@@ -201,7 +201,7 @@ export class GameComponent implements OnInit {
     let previousVal = parseInt(this.database.teams[team].players[index].position)
     this.database.teams[team].players[index].position = previousVal + parseInt(this.database.currentRoll)
     // if position change, update in the corresponding dance block
-    this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color)
+    this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color, team, index)
 
 
     this.database.isRollAwaited = true;
@@ -236,8 +236,31 @@ export class GameComponent implements OnInit {
     // include enpoints
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  updateDanceBlock(index, playerObj, color) {
+  updateDanceBlock(index, playerObj, color, team, playerNo) {
+    
+    // remake the dance floor  
+    // go through each one, if the team player match, remove them
+    // so in the next step they are going to get re added in their new position
+      for(let block in this.danceBlockObj){
+      
+        if(this.danceBlockObj[block].length){
+          
+          if(this.danceBlockObj[block].length){
+            
+              this.danceBlockObj[block].forEach( (stat, statKey)=>{
+
+                if((stat.team === team) && (stat.playerNo === playerNo) ){
+                  this.danceBlockObj[block].splice(statKey, 1)
+                }
+              });
+          }
+        }
+      }
+    
+    // now adding them in their new position
     playerObj['color'] = color
+    playerObj['team'] = team
+    playerObj['playerNo'] = playerNo
     this.danceBlockObj[index].push(playerObj)
   }
   makePlayBlocks() {
