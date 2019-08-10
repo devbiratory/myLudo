@@ -140,13 +140,13 @@ export class GameComponent implements OnInit {
     const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     this.database.currentRoll = currentRoll;
 
-
     console.log('rolled a ' + this.database.currentRoll)
     this.database.isRollAwaited = false;
 
     this.checkIfTeamCanMoveAfterRoll()
   }
   checkIfTeamCanMoveAfterRoll() {
+
     // because 6 means that yeah it can move
     if (this.database.currentRoll !== 6) {
       // if any player is of the status M
@@ -182,7 +182,7 @@ export class GameComponent implements OnInit {
       this.database.teams[team].players[index].status = 'M'
 
       // 0 here
-      this.updateDanceBlock(this.database.teams[team].players[index].position)
+      this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color)
 
       this.database.isRollAwaited = true;
       this.checkIfReached(team);
@@ -201,7 +201,7 @@ export class GameComponent implements OnInit {
     let previousVal = parseInt(this.database.teams[team].players[index].position)
     this.database.teams[team].players[index].position = previousVal + parseInt(this.database.currentRoll)
     // if position change, update in the corresponding dance block
-    this.updateDanceBlock(this.database.teams[team].players[index].position)
+    this.updateDanceBlock(this.database.teams[team].players[index].position, this.database.teams[team].players[index], this.database.teams[team].color)
 
 
     this.database.isRollAwaited = true;
@@ -236,8 +236,9 @@ export class GameComponent implements OnInit {
     // include enpoints
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  updateDanceBlock(index) {
-    this.danceBlockObj[index].push({})
+  updateDanceBlock(index, playerObj, color) {
+    playerObj['color'] = color
+    this.danceBlockObj[index].push(playerObj)
   }
   makePlayBlocks() {
     for (let i = 0; i < 50; i++) {
