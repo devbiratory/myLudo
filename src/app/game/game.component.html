@@ -7,71 +7,13 @@
   <!-- playing field div to show the games dance floor -->
   <div class="thePlayingFieldDiv">
     <div class="danceFloorRow">
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
+      <div *ngFor="let danceBlock of generateArray(danceBlockObj); let i = index" class="danceFloorBlock {{i}} ">
+       
+        <div *ngFor="let playa of danceBlock" class="gitiBlock ">
+            <div class="giti"> </div>
+        </div>        
+      </div>
     </div>
-
-    <div class="danceFloorRow">
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-    </div>
-
-    <div class="danceFloorRow">
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-    </div>
-
-    <div class="danceFloorRow">
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-    </div>
-
-    <div class="danceFloorRow">
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-      <div class="danceFloorBlock"></div>
-    </div>
-
-
   </div>
 
   <!-- basically the footer div to show stats, the turn, the options and the players who are still waiting  -->
@@ -80,7 +22,7 @@
     <div class="footerStatsOne" [class.active]="database.currentTeam == 'T1'" [class.waiting]="!database.isGameOn">
       <div class="gitiRow {{ database.teams.T1.color }}">
         <div *ngFor="let teamPlayer of generateArray(database.teams.T1.players); let i = index" class="gitiBlock">
-          <div (click)="moveIt('T1', i)" class="giti"></div>
+          <div [class.moving]="teamPlayer.status == 'M'" (click)="moveIt('T1', i)" class="giti"></div>
         </div>
       </div>
     </div>
@@ -101,7 +43,7 @@
     <div class="footerStatsThree" [class.active]="database.currentTeam == 'T2'" [class.waiting]="!database.isGameOn">
       <div class="gitiRow {{ database.teams.T2.color }}">
         <div *ngFor="let teamPlayer of generateArray(database.teams.T2.players); let i = index" class="gitiBlock">
-          <div (click)="moveIt('T2', i)" class="giti"></div>
+          <div [class.moving]="teamPlayer.status == 'M'" (click)="moveIt('T2', i)" class="giti"></div>
         </div>
       </div>
     </div>

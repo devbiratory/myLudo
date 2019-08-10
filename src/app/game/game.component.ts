@@ -60,7 +60,11 @@ export class GameComponent implements OnInit {
     isGameOn: false,
     isWinner: 'T1 || T2'
   }
-  constructor() { }
+  danceBlockObj: any = {}
+  constructor() {
+
+    this.makePlayBlocks();
+  }
 
   ngOnInit() {
 
@@ -166,18 +170,38 @@ export class GameComponent implements OnInit {
       return
     }
     //if we are here means we can go forward because the 'if this team can move at all' check has already happened
-    if( (this.database.teams[team].players[index].status === 'B') && (this.database.currentRoll !== 6) ){
-      return 
+    if ((this.database.teams[team].players[index].status === 'B') && (this.database.currentRoll !== 6)) {
+      return
+    }
+
+    // if it's a 6 and the player is at 'B' then we only update the status
+    // then only the basic steps, no changing the turn
+    // also update the dance block
+    if ((this.database.teams[team].players[index].status === 'B') && (this.database.currentRoll === 6)) {
+
+      this.database.teams[team].players[index].status = 'M'
+
+      // 0 here
+      this.updateDanceBlock(this.database.teams[team].players[index].position)
+
+      this.database.isRollAwaited = true;
+      this.checkIfReached(team);
+      this.checkIfWon(team);
+      console.log(this.database.teams.T1.players)
+      console.log(this.database.teams.T2.players)
+      return
     }
 
     // now here move it as much then turn isRollAwaited off and currentRoll 0
-    // update status to M and W and overall win checks here?
+    // update status to M and W and overall win checks here
     // update status to M means its moving
 
     this.database.teams[team].players[index].status = 'M'
 
     let previousVal = parseInt(this.database.teams[team].players[index].position)
     this.database.teams[team].players[index].position = previousVal + parseInt(this.database.currentRoll)
+    // if position change, update in the corresponding dance block
+    this.updateDanceBlock(this.database.teams[team].players[index].position)
 
 
     this.database.isRollAwaited = true;
@@ -211,6 +235,14 @@ export class GameComponent implements OnInit {
   randomNumberGiver(min, max) {
     // include enpoints
     return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+  updateDanceBlock(index) {
+    this.danceBlockObj[index].push({})
+  }
+  makePlayBlocks() {
+    for (let i = 0; i < 50; i++) {
+      this.danceBlockObj[i] = []
+    }
   }
   // basically the idea here is to give it an object and get back an array 
   generateArray(obj) {
