@@ -9,7 +9,7 @@
     <div class="danceFloorRow">
       <div *ngFor="let danceBlock of generateArray(danceBlockObj); let i = index" class="danceFloorBlock {{i}} ">
        
-        <div *ngFor="let playa of danceBlock" class="gitiBlock ">
+        <div *ngFor="let playa of danceBlock" [class]="getPlayersClass(danceBlock) +' gitiBlock'" >
             <div  [class]="playa.color +' giti'"> </div> 
         </div>        
       </div>

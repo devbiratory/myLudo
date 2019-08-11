@@ -29,6 +29,7 @@
     width: 10%;
     height: 100%;
     border: 1px solid #918181;
+    position: relative;
 }
 
 .footerStatsDiv{
@@ -138,9 +139,9 @@
 }
 
 .danceFloorBlock .gitiBlock .giti{
-    width: 30%;
-    margin: 10% auto;
-    height: 30px;
+    width: 25%;
+    // margin: 10% auto;
+    height: 25px;
     border: 1px solid;
     border-radius: 100%;
 }
@@ -154,11 +155,102 @@
     background: blue;
 }
 
-.giti.yellow{
-    background: yellow;
+.giti.green{
+    background: green;
 }
 
 .giti.yellow{
-    background: green;
+    background: yellow;
 }
 // blocks
+
+// gitis handled to position
+//one
+.gitiBlock.one{
+    position: relative;
+}
+
+.danceFloorBlock .gitiBlock.one {
+    margin: 0; 
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.danceFloorBlock .gitiBlock.one .giti{
+    margin: auto; 
+}
+
+// one
+
+//two
+.gitiBlock.two{
+    position: relative;
+    height: 50%;
+}
+
+.danceFloorBlock .gitiBlock.two .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+// two
+
+//three
+.gitiBlock.three{
+    position: relative;
+    height: 33%;;
+}
+
+.danceFloorBlock .gitiBlock.three .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+// three
+
+// four
+.gitiBlock.four{
+    position: relative;
+    height: 25%;;
+}
+
+.danceFloorBlock .gitiBlock.four .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+
+// four
+
+
+
+.gitiBlock.five{
+    position: relative;
+}
+
+
+.gitiBlock.six{
+    position: relative;
+}
+
+.gitiBlock.seven{
+    position: relative;
+}
+
+.gitiBlock.eight{
+    position: relative;
+}

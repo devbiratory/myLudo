@@ -139,6 +139,7 @@ export class GameComponent implements OnInit {
     // update currentRoll (1 - 6)
     const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     this.database.currentRoll = currentRoll;
+    // this.database.currentRoll = 6;
 
     console.log('rolled a ' + this.database.currentRoll)
     this.database.isRollAwaited = false;
@@ -267,6 +268,21 @@ export class GameComponent implements OnInit {
     for (let i = 0; i < 50; i++) {
       this.danceBlockObj[i] = []
     }
+  }
+  getPlayersClass(danceBlock){
+
+    const numberClassGiver = {
+      0: 'zero',
+      1: 'one',  
+      2: 'two',     
+      3: 'three',     
+      4: 'four',     
+      5: 'five',     
+      6: 'six',     
+      7: 'seven',     
+      8: 'eight',               
+    }
+    return numberClassGiver[danceBlock.length]
   }
   // basically the idea here is to give it an object and get back an array 
   generateArray(obj) {
