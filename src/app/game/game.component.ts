@@ -137,9 +137,9 @@ export class GameComponent implements OnInit {
   roll() {
 
     // update currentRoll (1 - 6)
-    const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-    // this.database.currentRoll = currentRoll;
-    this.database.currentRoll = 6;
+    const currentRoll = Math.floor(Math.random() * (6 - 5 + 1)) + 5;
+    this.database.currentRoll = currentRoll;
+    // this.database.currentRoll = 6;
 
     console.log('rolled a ' + this.database.currentRoll)
     this.database.isRollAwaited = false;
@@ -239,22 +239,45 @@ export class GameComponent implements OnInit {
   }
   updateDanceBlock(index, playerObj, color, team, playerNo) {
 
+    console.log('checking when updateing a fance block')
+    console.log(arguments)
+    let a = arguments
     // remake the dance floor  
     // go through each one, if the team player match, remove them
     // so in the next step they are going to get re added in their new position
+    let removedOne = false
     for (let block in this.danceBlockObj) {
 
       if (this.danceBlockObj[block].length) {
 
-        if (this.danceBlockObj[block].length) {
+        this.danceBlockObj[block].forEach((stat, statKey) => {
 
-          this.danceBlockObj[block].forEach((stat, statKey) => {
+          if ((stat.team === team) && (stat.playerNo === playerNo)) {
+            this.danceBlockObj[block].splice(statKey, 1)
+          }
+          else {
 
-            if ((stat.team === team) && (stat.playerNo === playerNo)) {
-              this.danceBlockObj[block].splice(statKey, 1)
+            console.log('selseelseelseelseelsetat')
+
+            if ((stat.team !== team)) {
+
+              if (!removedOne) {
+                if (parseInt(block) == parseInt(index)) {
+
+                  console.log('GOLD GOLD~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!')
+                  console.log(stat)
+
+                  this.danceBlockObj[block].splice(statKey, 1)
+                  removedOne = true
+
+                  this.backToBase(stat)
+                }
+              }
+
+
             }
-          });
-        }
+          }
+        });
       }
     }
 
@@ -263,6 +286,19 @@ export class GameComponent implements OnInit {
     playerObj['team'] = team
     playerObj['playerNo'] = playerNo
     this.danceBlockObj[index].push(playerObj)
+  }
+  backToBase(stat){
+
+    // color:"green",
+    // playerNo:0
+    // position:0
+    // status:"M"
+    // team:"T2"
+
+    // status: "B",
+    // position: 0
+    this.database.teams[stat.team].players[stat.playerNo].status = 'B';
+    this.database.teams[stat.team].players[stat.playerNo].position = 0;
   }
   makePlayBlocks() {
     for (let i = 0; i < 50; i++) {
