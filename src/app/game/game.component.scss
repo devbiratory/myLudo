@@ -139,7 +139,7 @@
 }
 
 .danceFloorBlock .gitiBlock .giti{
-    width: 25%;
+    width: 20%;
     // margin: 10% auto;
     height: 25px;
     border: 1px solid;
@@ -197,7 +197,7 @@
     top: 50%;
     -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    left: 35%;
+    left: 40%;
 }
 // two
 
@@ -236,21 +236,78 @@
 
 // four
 
-
-
+// five
 .gitiBlock.five{
     position: relative;
+    height: 25%;
+    width: 50% !important;
 }
 
+.danceFloorBlock .gitiBlock.five .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
 
+// five
+
+// six
 .gitiBlock.six{
     position: relative;
+    height: 25%;
+    width: 50% !important;
 }
 
+.danceFloorBlock .gitiBlock.six .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+
+// six
+
+// seven 
 .gitiBlock.seven{
     position: relative;
+    height: 25%;
+    width: 50% !important;
 }
 
+.danceFloorBlock .gitiBlock.seven .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+
+// seven 
+
+// eight
 .gitiBlock.eight{
     position: relative;
+    height: 25%;
+    width: 50% !important;
 }
+
+.danceFloorBlock .gitiBlock.eight .giti{
+    // margin: auto; 
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    left: 35%;
+}
+
+// eight

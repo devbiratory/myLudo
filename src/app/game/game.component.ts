@@ -138,8 +138,8 @@ export class GameComponent implements OnInit {
 
     // update currentRoll (1 - 6)
     const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-    this.database.currentRoll = currentRoll;
-    // this.database.currentRoll = 6;
+    // this.database.currentRoll = currentRoll;
+    this.database.currentRoll = 6;
 
     console.log('rolled a ' + this.database.currentRoll)
     this.database.isRollAwaited = false;
@@ -238,26 +238,26 @@ export class GameComponent implements OnInit {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
   updateDanceBlock(index, playerObj, color, team, playerNo) {
-    
+
     // remake the dance floor  
     // go through each one, if the team player match, remove them
     // so in the next step they are going to get re added in their new position
-      for(let block in this.danceBlockObj){
-      
-        if(this.danceBlockObj[block].length){
-          
-          if(this.danceBlockObj[block].length){
-            
-              this.danceBlockObj[block].forEach( (stat, statKey)=>{
+    for (let block in this.danceBlockObj) {
 
-                if((stat.team === team) && (stat.playerNo === playerNo) ){
-                  this.danceBlockObj[block].splice(statKey, 1)
-                }
-              });
-          }
+      if (this.danceBlockObj[block].length) {
+
+        if (this.danceBlockObj[block].length) {
+
+          this.danceBlockObj[block].forEach((stat, statKey) => {
+
+            if ((stat.team === team) && (stat.playerNo === playerNo)) {
+              this.danceBlockObj[block].splice(statKey, 1)
+            }
+          });
         }
       }
-    
+    }
+
     // now adding them in their new position
     playerObj['color'] = color
     playerObj['team'] = team
@@ -269,18 +269,18 @@ export class GameComponent implements OnInit {
       this.danceBlockObj[i] = []
     }
   }
-  getPlayersClass(danceBlock){
+  getPlayersClass(danceBlock) {
 
     const numberClassGiver = {
       0: 'zero',
-      1: 'one',  
-      2: 'two',     
-      3: 'three',     
-      4: 'four',     
-      5: 'five',     
-      6: 'six',     
-      7: 'seven',     
-      8: 'eight',               
+      1: 'one',
+      2: 'two',
+      3: 'three',
+      4: 'four',
+      5: 'five',
+      6: 'six',
+      7: 'seven',
+      8: 'eight',
     }
     return numberClassGiver[danceBlock.length]
   }
