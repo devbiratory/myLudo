@@ -137,7 +137,7 @@ export class GameComponent implements OnInit {
   roll() {
 
     // update currentRoll (1 - 6)
-    const currentRoll = Math.floor(Math.random() * (6 - 5 + 1)) + 5;
+    const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     this.database.currentRoll = currentRoll;
     // this.database.currentRoll = 6;
 
@@ -164,8 +164,18 @@ export class GameComponent implements OnInit {
       }
     }
   }
+  /*
+  * @parms
+  * Team name : T1 || T2 
+  * index: which player number in the team 0-3
+  */
   moveIt(team: any, index: number) {
 
+    console.log('checking data on move it')
+    console.log('team ')
+    console.log(team)
+    console.log('index')
+    console.log(index)
     // only proceed if the team whose turn it is, is the one who called to moveIt
     if (team !== this.database.currentTeam) {
       return
@@ -188,8 +198,6 @@ export class GameComponent implements OnInit {
       this.database.isRollAwaited = true;
       this.checkIfReached(team);
       this.checkIfWon(team);
-      console.log(this.database.teams.T1.players)
-      console.log(this.database.teams.T2.players)
       return
     }
 
@@ -239,8 +247,6 @@ export class GameComponent implements OnInit {
   }
   updateDanceBlock(index, playerObj, color, team, playerNo) {
 
-    console.log('checking when updateing a fance block')
-    console.log(arguments)
     let a = arguments
     // remake the dance floor  
     // go through each one, if the team player match, remove them
@@ -257,15 +263,10 @@ export class GameComponent implements OnInit {
           }
           else {
 
-            console.log('selseelseelseelseelsetat')
-
             if ((stat.team !== team)) {
 
               if (!removedOne) {
                 if (parseInt(block) == parseInt(index)) {
-
-                  console.log('GOLD GOLD~~~~~~~~~!!!!!!!!!!!!!!!!!!!!!!!!')
-                  console.log(stat)
 
                   this.danceBlockObj[block].splice(statKey, 1)
                   removedOne = true
@@ -273,8 +274,6 @@ export class GameComponent implements OnInit {
                   this.backToBase(stat)
                 }
               }
-
-
             }
           }
         });
@@ -287,16 +286,8 @@ export class GameComponent implements OnInit {
     playerObj['playerNo'] = playerNo
     this.danceBlockObj[index].push(playerObj)
   }
-  backToBase(stat){
+  backToBase(stat) {
 
-    // color:"green",
-    // playerNo:0
-    // position:0
-    // status:"M"
-    // team:"T2"
-
-    // status: "B",
-    // position: 0
     this.database.teams[stat.team].players[stat.playerNo].status = 'B';
     this.database.teams[stat.team].players[stat.playerNo].position = 0;
   }
