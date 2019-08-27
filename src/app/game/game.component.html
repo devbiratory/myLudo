@@ -1,4 +1,4 @@
-<section class="container-fluid overallGameContainer">
+<section *ngIf="!database.isWinner" class="container-fluid overallGameContainer">
   <!-- victory div to show the ones who made it  -->
   <div class="victoryDiv">
 
@@ -54,3 +54,5 @@
     </div>
   </div>
 </section>
+
+<app-winner [winningTeam]="database.isWinner" (playAgain)="playAgain()" *ngIf="database.isWinner"></app-winner>

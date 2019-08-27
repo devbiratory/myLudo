@@ -58,12 +58,14 @@ export class GameComponent implements OnInit {
     isRollAwaited: false,
     currentRoll: 0,
     isGameOn: false,
-    isWinner: 'T1 || T2'
+    isWinner: 'T1' // T1 || T2
   }
   danceBlockObj: any = {}
+  databaseOriginal: any = {}
   constructor() {
 
     this.makePlayBlocks();
+    this.databaseOriginal = JSON.parse(JSON.stringify(this.database))
   }
 
   ngOnInit() {
@@ -137,7 +139,8 @@ export class GameComponent implements OnInit {
   roll() {
 
     // update currentRoll (1 - 6)
-    const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+    // const currentRoll = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+    const currentRoll = this.randomNumberGiver(0, 15)
     this.database.currentRoll = currentRoll;
     // this.database.currentRoll = 6;
 
@@ -171,11 +174,6 @@ export class GameComponent implements OnInit {
   */
   moveIt(team: any, index: number) {
 
-    console.log('checking data on move it')
-    console.log('team ')
-    console.log(team)
-    console.log('index')
-    console.log(index)
     // only proceed if the team whose turn it is, is the one who called to moveIt
     if (team !== this.database.currentTeam) {
       return
@@ -218,10 +216,8 @@ export class GameComponent implements OnInit {
     this.checkIfWon(team);
 
     this.changeTeamTurn()
-
-    console.log(this.database.teams.T1.players)
-    console.log(this.database.teams.T2.players)
   }
+
   changeTeamTurn() {
 
     // check who it is 
@@ -241,10 +237,12 @@ export class GameComponent implements OnInit {
       console.log('do nothing bro we got a 6')
     }
   }
+
   randomNumberGiver(min, max) {
     // include enpoints
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
+
   updateDanceBlock(index, playerObj, color, team, playerNo) {
 
     let a = arguments
@@ -284,18 +282,23 @@ export class GameComponent implements OnInit {
     playerObj['color'] = color
     playerObj['team'] = team
     playerObj['playerNo'] = playerNo
-    this.danceBlockObj[index].push(playerObj)
+    if (this.danceBlockObj[index]) {
+      this.danceBlockObj[index].push(playerObj)
+    }
   }
+
   backToBase(stat) {
 
     this.database.teams[stat.team].players[stat.playerNo].status = 'B';
     this.database.teams[stat.team].players[stat.playerNo].position = 0;
   }
+
   makePlayBlocks() {
     for (let i = 0; i < 50; i++) {
       this.danceBlockObj[i] = []
     }
   }
+
   getPlayersClass(danceBlock) {
 
     const numberClassGiver = {
@@ -311,6 +314,7 @@ export class GameComponent implements OnInit {
     }
     return numberClassGiver[danceBlock.length]
   }
+
   // basically the idea here is to give it an object and get back an array 
   generateArray(obj) {
     return Object.keys(obj).map((key) => { return obj[key] });
@@ -322,11 +326,14 @@ export class GameComponent implements OnInit {
 
       if (this.database.teams[team].players[player].position >= 50) {
 
+        console.log('teams each stufdff')
+
         this.database.teams[team].players[player].status = 'W'
-        alert('THIS ONE REACHED!!!!')
+        console.log(this.database.teams[team].players)
       }
     }
   }
+
   checkIfWon(team: string) {
 
     let ifWon = true
@@ -336,9 +343,25 @@ export class GameComponent implements OnInit {
         ifWon = false
     }
     if (ifWon) {
-      alert('WON!!!!!')
-    } else {
+      this.presentTheWinningTeam(team)
 
     }
+  }
+  presentTheWinningTeam(team: string) {
+
+    // make this team win and redirect
+    this.database.currentTeam = ''
+    this.database.currentTeam = false
+    this.database.currentRoll = 0
+    this.database.isGameOn = false
+    this.database.isWinner = team
+  }
+
+  playAgain() {
+
+    this.database = JSON.parse(JSON.stringify(this.databaseOriginal))
+    this.databaseOriginal = JSON.parse(JSON.stringify(this.database))
+    this.database.isWinner = ''
+    this.assignColors()
   }
 }
